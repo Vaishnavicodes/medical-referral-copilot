@@ -25,21 +25,65 @@ Extract three things from the user query:
 - location  : the Indian city, town, district, or 6-digit PIN code in English
 - org_type  : "government" if they explicitly want a government/public hospital, "private" if they want private, "" otherwise
 
-Symptom → specialty mapping (always use the specialty, not the raw symptom):
-  fever, cold, cough, body ache, headache, weakness, vomiting, diarrhea, rash → "general medicine"
-  diabetes, blood pressure, thyroid, routine checkup                           → "general medicine"
-  leg injury, fracture, broken bone, sprain, joint pain, back pain             → "orthopedics"
-  chest pain, heart problem, palpitations                                       → "cardiology"
-  eye problem, eye pain, eye injury, vision                                     → "ophthalmology"
-  pregnancy, delivery, antenatal, maternity                                     → "maternity"
-  kidney, dialysis                                                               → "dialysis"
-  seizure, brain, stroke, paralysis, numbness                                   → "neurology"
-  child sick, infant, newborn                                                   → "pediatrics"
-  stomach pain, acidity, jaundice, liver                                        → "gastroenterology"
-  skin rash, eczema, skin infection                                             → "dermatology"
-  breathing difficulty, asthma, lung                                            → "pulmonology"
-  urine burning, kidney stone, urinary                                          → "urology"
-  emergency, accident, unconscious, heavy bleeding                              → "emergency"
+Symptom → specialty mapping (always use the specialty, not the raw symptom).
+Map layman descriptions like "I hurt my leg" or "my baby is sick" to the right specialty:
+
+  INJURIES / BONES / JOINTS:
+  hurt my leg, leg pain, broken leg, twisted ankle, can't walk, leg injury   → "orthopedics"
+  hurt my arm, broken arm, shoulder pain, knee pain, back pain, joint pain   → "orthopedics"
+  fracture, broken bone, sprain, dislocation, fell down, slipped             → "orthopedics"
+  neck pain, hip pain, wrist pain, elbow pain, musculoskeletal               → "orthopedics"
+
+  HEART / CHEST:
+  chest pain, chest tightness, heart pain, heart racing, palpitations        → "cardiology"
+  heart attack, heart problem, irregular heartbeat                           → "cardiology"
+
+  EYES:
+  eye problem, eye pain, can't see, blurry vision, something in my eye      → "ophthalmology"
+  red eye, eye infection, eye injury, cataract, vision problem               → "ophthalmology"
+
+  BREATHING:
+  can't breathe, breathless, difficulty breathing, wheezing, asthma         → "pulmonology"
+  chest congestion, lung problem, persistent cough, coughing blood           → "pulmonology"
+
+  BRAIN / NERVES:
+  seizure, fits, stroke, paralysis, numbness, can't speak, memory loss       → "neurology"
+  severe headache, dizzy, balance problem, brain injury, epilepsy            → "neurology"
+
+  STOMACH / DIGESTION:
+  stomach pain, stomach ache, tummy ache, acidity, heartburn                 → "gastroenterology"
+  jaundice, liver problem, yellow eyes, constipation, blood in stool         → "gastroenterology"
+
+  SKIN:
+  skin rash, itching, eczema, skin infection, psoriasis, acne                → "dermatology"
+
+  URINE / KIDNEY:
+  burning while peeing, blood in urine, can't urinate, kidney stone          → "urology"
+  frequent urination, pain while urinating, prostate problem                 → "urology"
+  kidney failure, kidney disease, dialysis needed                            → "dialysis"
+
+  EAR / NOSE / THROAT:
+  ear pain, ear infection, sore throat, tonsil, hearing loss, blocked nose   → "ent"
+
+  MATERNITY / PREGNANCY:
+  pregnant, expecting a baby, about to deliver, contractions, water broke    → "maternity"
+  antenatal, postnatal, delivery, labour, cesarean, newborn care             → "maternity"
+
+  CHILDREN:
+  my child is sick, my baby is sick, my kid is sick, infant, toddler         → "pediatrics"
+
+  MENTAL HEALTH:
+  depression, anxiety, panic attack, stress, insomnia, suicidal thoughts     → "psychiatry"
+
+  CANCER:
+  lump, tumour, tumor, cancer, chemotherapy, radiation treatment             → "oncology"
+
+  EMERGENCY:
+  accident, unconscious, heavy bleeding, not breathing, life threatening     → "emergency"
+
+  GENERAL / MILD:
+  fever, cold, cough, body ache, headache, weakness, vomiting, diarrhea     → "general medicine"
+  not feeling well, feeling sick, tired, blood pressure, diabetes, checkup  → "general medicine"
 
 Rules:
 - Strip filler words from care_need: remove "hospital", "clinic", "show me", "find", "i have", "i need", "government", "private" etc.
