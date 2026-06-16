@@ -615,34 +615,68 @@ CRITICAL: Always read the full conversation history. Location and care need from
    Do NOT ask about something already answered in the history.
 
 ━━━ SYMPTOM → SPECIALTY MAPPING ━━━
-Always map symptoms to the right specialty for care_need. Use these as a guide:
+Always map symptoms and layman descriptions to the right specialty.
+Users will often describe their problem in plain language — translate it to the right specialty.
 
-  Serious / urgent:
-    chest pain, heart attack, palpitations     → "cardiology"
-    can't breathe, severe breathlessness       → "pulmonology"
-    unconscious, major accident, heavy bleeding → "emergency"
-    seizure, sudden numbness, stroke signs     → "neurology"
+  INJURIES / BONES / JOINTS (→ "orthopedics"):
+    "I hurt my leg", "my leg hurts", "leg pain", "broken leg"
+    "twisted my ankle", "sprained ankle", "can't walk", "fell down"
+    "arm pain", "shoulder pain", "knee pain", "back pain", "neck pain"
+    "fracture", "broken bone", "dislocation", "joint pain"
 
-  Injuries:
-    leg injury, fracture, broken bone, sprain  → "orthopedics"
-    arm injury, shoulder pain, joint pain      → "orthopedics"
-    eye injury, foreign body in eye            → "ophthalmology"
+  HEART / CHEST (→ "cardiology"):
+    "chest pain", "chest tightness", "heart pain", "heart racing"
+    "palpitations", "heart attack", "irregular heartbeat"
 
-  Specialist needs:
-    kidney failure, dialysis                   → "dialysis"
-    pregnancy, delivery, maternity             → "maternity"
-    child / infant sick                        → "pediatrics"
-    skin rash, eczema                          → "dermatology"
-    stomach pain, acidity, jaundice            → "gastroenterology"
-    urinary burning, kidney stone              → "urology"
-    mental health, depression, anxiety         → "psychiatry"
+  EYES (→ "ophthalmology"):
+    "eye problem", "eye pain", "can't see well", "blurry vision"
+    "something in my eye", "red eye", "eye infection", "eye injury"
 
-  Mild / common (when symptoms are not clearly serious):
-    fever, cold, cough, body ache, headache    → "general medicine"
-    weakness, vomiting, diarrhea, rash         → "general medicine"
-    routine checkup, blood pressure, diabetes  → "general medicine"
-    any vague symptom without enough context   → ask ONE question to understand severity,
-                                                 then route to the right specialty or "general medicine"
+  BREATHING (→ "pulmonology"):
+    "can't breathe", "breathless", "difficulty breathing", "wheezing"
+    "asthma", "chest congestion", "persistent cough", "coughing blood"
+
+  BRAIN / NERVES (→ "neurology"):
+    "seizure", "fits", "stroke", "paralysis", "numbness", "can't speak"
+    "dizzy", "severe headache", "memory loss", "balance problem"
+
+  STOMACH / DIGESTION (→ "gastroenterology"):
+    "stomach pain", "stomach ache", "tummy ache", "acidity", "heartburn"
+    "jaundice", "yellow eyes", "liver problem", "constipation", "blood in stool"
+
+  SKIN (→ "dermatology"):
+    "skin rash", "itching", "eczema", "skin infection", "acne", "hair fall"
+
+  URINE / KIDNEY (→ "urology"):
+    "burning while peeing", "blood in urine", "can't urinate", "kidney stone"
+    "frequent urination", "prostate problem"
+
+  KIDNEY FAILURE (→ "dialysis"):
+    "kidney failure", "dialysis needed", "kidney disease"
+
+  EAR / NOSE / THROAT (→ "ent"):
+    "ear pain", "earache", "sore throat", "tonsil", "hearing loss", "blocked nose"
+
+  MATERNITY / PREGNANCY (→ "maternity"):
+    "pregnant", "expecting a baby", "about to deliver", "contractions"
+    "water broke", "labour", "delivery", "antenatal care"
+
+  CHILDREN (→ "pediatrics"):
+    "my child is sick", "my baby is sick", "my kid", "infant sick", "toddler sick"
+
+  MENTAL HEALTH (→ "psychiatry"):
+    "depression", "anxiety", "panic attack", "stress", "suicidal", "insomnia"
+
+  CANCER (→ "oncology"):
+    "lump", "tumour", "cancer", "chemotherapy", "radiation treatment"
+
+  EMERGENCY (→ "emergency"):
+    "accident", "unconscious", "heavy bleeding", "not breathing", "life threatening"
+
+  GENERAL / MILD (→ "general medicine"):
+    "fever", "cold", "cough", "body ache", "not feeling well", "feeling sick"
+    "blood pressure", "diabetes", "routine checkup", "tired", "weakness"
+    any vague symptom → ask ONE question to understand severity before routing
 
 ━━━ IMPORTANT RULES ━━━
 - "hospitals near X" / "best hospitals" / "clinic near X" alone are NOT care needs — ask what condition.
@@ -1055,7 +1089,7 @@ def _topbar_html(query, radius, n_saved, in_chat=False):
     <div style="{field_s}">
       <label style="{lbl_s}">What care do you need?</label>
       <input id="vi-care" autocomplete="off"
-             placeholder="e.g. dialysis, eye care, maternity…"
+             placeholder="e.g. I hurt my leg, chest pain, dialysis…"
              onkeydown="{_kd}"
              {'autofocus' if not in_chat else ''}
              style="{inp_s}" />
